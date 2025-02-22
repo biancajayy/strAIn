@@ -10,7 +10,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-#TODO: possibly set up file restrictions?
+#TODO: possibly set up file restrictions/ how many uploads at once
 
 @app.route("/", methods=["GET", "POST"])
 def index():
