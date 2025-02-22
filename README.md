@@ -18,6 +18,6 @@ This project analyzes user-uploaded workout videos to detect which areas of the 
 
 ---
 
-## ** Tech Stack**
+## **Tech Stack**
 - **Backend:** Python, OpenCV, MediaPipe  
 - **Frontend:** Flask, HTML/CSS  
