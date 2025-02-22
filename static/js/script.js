@@ -1,54 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//     const fileInput = document.querySelector(".upload-input");
-
-//     fileInput.addEventListener("change", (event) => {
-//         const file = event.target.files[0]; // Get the selected file
-//         if (file) {
-//             console.log("File selected:", file.name);
-            
-//             // Example: Show file name
-//             alert(`You uploaded: ${file.name}`);
-
-//             // Example: Process the file further
-//             // Upload it to a server using fetch()
-//             // processFile(file);
-//         }
-//     });
-// });
-
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     const fileInput = document.querySelector(".upload-input");
-//     const uploadLabel = document.querySelector(".upload-btn");
-//     const uploadForm = document.querySelector("form");
-
-//     fileInput.addEventListener("change", (event) => {
-//         const file = event.target.files[0]; // Get the selected file
-//         if (file) {
-//             console.log("File selected:", file.name);
-
-//             // Change the button text to show file name
-//             uploadLabel.textContent = `Selected: ${file.name}`;
-
-//             // Show a success message
-//             alert(`You uploaded: ${file.name}`);
-//         }
-//     });
-
-//     uploadForm.addEventListener("submit", (event) => {
-//         const file = fileInput.files[0];
-
-//         if (!file) {
-//             alert("Please select a file before submitting!");
-//             event.preventDefault(); // Stop form submission
-//             return;
-//         }
-
-//         // Show a loading message
-//         uploadLabel.textContent = "Uploading...";
-//     });
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
     const fileInput = document.querySelector(".upload-input");
     const uploadForm = document.querySelector(".upload-container");
@@ -71,10 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
             method: "POST",
             body: formData
         })
-        .then(response => response.text())
-        .then(data => {
-            console.log("Upload successful:", data);
-            window.location.reload(); // Refresh the page to show uploaded files
+        // .then(response => response.text())
+        // .then(data => {
+        //     console.log("Upload successful:", data);
+        //     window.location.reload(); // Refresh the page to show uploaded files
+        // })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url; // Follow the redirect
+            } else {
+                return response.text(); // If no redirect, log the response
+            }
         })
         .catch(error => {
             console.error("Upload failed:", error);
@@ -82,3 +38,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
