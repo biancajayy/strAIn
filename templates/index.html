@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRAIN - Upload Video</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-container"> 
+            <div class="column-left">
+                <h1>STRAIN</h1>
+                <p>Upload your workout videos to detect which areas of the body experience the most strain.</p>
+
+                <!-- Upload Form -->
+                <form action="/" method="post" enctype="multipart/form-data" class="upload-container">
+                    <label class="upload-btn">
+                        Upload
+                        <input type="file" name="file" class="upload-input" accept="video/*" required>
+                    </label>
+                </form>
+
+                <!-- Display Uploaded Files -->
+                {% if files %}
+                <div class="uploaded-files">
+                    <h3>Uploaded Videos:</h3>
+                    <ul>
+                        {% for file in files %}
+                        <li>
+                            <a href="{{ url_for('static', filename='uploads/' + file) }}" target="_blank">{{ file }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
