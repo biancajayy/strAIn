@@ -9,16 +9,54 @@
 <body>
     <div class="container">
         <h2>Uploaded Video</h2>
-        <video controls width="600">
-            <source src="{{ video_url }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <br>
+        
+        <!-- Video & Image Wrapper -->
+        <div class="video-container">
+            <!-- Video -->
+            <video controls>
+                <source src="{{ video_url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
 
-        <form action="/" method="get">
-            <button type="submit">Upload Another Video</button>
-        </form>
+            <!-- Wireframe Image with SVG Overlay -->
+            <div class="wireframe-container">
+                <!-- Human Wireframe -->
+                <img src="{{ url_for('static', filename='images/humanbodywireframe.png') }}" alt="Human Wireframe" class="wireframe-img">
+            
+                <!-- Heatmap SVG Overlay -->
+                <svg class="overlay" viewBox="0 0 500 800" preserveAspectRatio="xMidYMid meet">
+                    <!-- shoulders-->
+                    <circle id="shoulder-left" cx="30%" cy="25%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+                    <circle id="shoulder-right" cx="70%" cy="25%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+
+                    <!-- elbows-->
+                    <circle id="elbow-left" cx="20%" cy="33%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+                    <circle id="elbow-right" cx="80%" cy="33%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+
+                    <!-- hips-->
+                    <circle id="hip-left" cx="40%" cy="50%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+                    <circle id="hip-right" cx="60%" cy="50%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+
+                    <!-- knees-->
+                    <circle id="knee-left" cx="37%" cy="75%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+                    <circle id="knee-right" cx="63%" cy="75%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+
+                    <!-- ankle-->
+                    <circle id="ankle-left" cx="33%" cy="90%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+                    <circle id="ankle-right" cx="67%" cy="90%" r="4%" fill="transparent" fill-opacity=.5 stroke="none"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="bottom-container">
+            <form action="/" method="get">
+                <button type="submit" class="upload-again-btn">Upload Another Video</button>
+            </form>
+        </div>
+
         
     </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
