@@ -155,3 +155,56 @@ video {
     height: 100%;
     pointer-events: none;
 }
+
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Space between input and button */
+    margin-bottom: 20px;
+}
+
+/* Weight Input (Thinner Underline) */
+.weight-input-container {
+    position: relative;
+    max-width: 120px; /* Adjust width to fit beside the button */
+}
+
+.weight-label {
+    font-size: 0.9rem;
+    font-weight: 400;
+    opacity: 0.8;
+    display: block;
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+.weight-input {
+    width: 100%;
+    font-size: 1.1rem;
+    text-align: center;
+    background: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white; /* Make underline thinner */
+    padding: 4px 0;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    appearance: textfield;
+    -moz-appearance: textfield;
+    cursor: default;
+}
+
+/* Hide number input arrows */
+.weight-input::-webkit-inner-spin-button,
+.weight-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    display: none;
+}
+
+/* Input focus effect */
+.weight-input:focus {
+    border-bottom: 1px solid #ffffff; /* Keep it thin even when focused */
+}
