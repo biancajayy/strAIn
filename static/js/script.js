@@ -26,9 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         errorMessage.style.color = "red";
         errorMessage.style.display = "none";
         errorMessage.textContent = "Please enter your weight before uploading.";
-        if (weightInput) {
-            weightInput.parentElement.appendChild(errorMessage);
-        }
+        weightInput.parentElement.appendChild(errorMessage);
 
         // ✅ Disable upload button until weight is entered
         uploadButton.disabled = true;
@@ -100,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /** ✅ Function to fetch heatmap data from Flask **/
     function fetchHeatmapData() {
-        fetch("/get_model_output")
+        fetch("/get_aggregate_data")
             .then(response => response.json())
             .then(modelOutput => {
                 console.log("📊 Received model output:", modelOutput);
@@ -110,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("❌ Error fetching model output:", error);
             });
     }
-
     function updateHeatmap(modelOutput) {
         console.log("🔵 Updating Heatmap...");
     
@@ -118,18 +115,66 @@ document.addEventListener("DOMContentLoaded", () => {
             const partElement = document.getElementById(bodyPart);
     
             if (partElement) {
-                // Access the 'color' property from the object
-                const color = modelOutput[bodyPart]?.color;  // ✅ Get color from API
-                if (color) {
-                    partElement.setAttributeNS(null, "fill", color);  // Apply the color to the SVG circle
+                // Extract the numeric value.
+                console.log("before num", modelOutput[bodyPart]);
+                const value = Number(Object.values(modelOutput[bodyPart])[0]);
+                console.log("value", value);
     
-                    console.log(`✅ Updated ${bodyPart} to ${color}`);
+                // Determine color based on thresholds.
+                let color = "";
+                if (value < 100000) {
+                    color = "#00FF00";  // Green (Low strain)
+                } else if (value < 350000) {
+                    color = "#FFA500";  // Orange (Medium strain)
                 } else {
-                    console.warn(`⚠️ No color provided for '${bodyPart}'`);
+                    color = "#FF0000";  // Red (High strain)
+                }
+    
+                // Update the circle color.
+                partElement.setAttribute("fill", color);
+                console.log(`✅ Updated ${bodyPart} to ${color}`);
+    
+                // Update the corresponding text element with the numeric value.
+                const textElement = document.getElementById(`${bodyPart}_text`);
+                if (textElement) {
+                    textElement.textContent = value.toFixed(4);
+                } else {
+                    console.error(`❌ Text element for '${bodyPart}' not found.`);
                 }
             } else {
                 console.error(`❌ Element with ID '${bodyPart}' not found.`);
             }
         });
     }
+    
+
+    // function updateHeatmap(modelOutput) {
+    //     console.log("🔵 Updating Heatmap...");
+
+    //     Object.keys(modelOutput).forEach((bodyPart) => {
+    //         const partElement = document.getElementById(bodyPart);
+
+    //         if (partElement) {
+    //             // Convert value to a number and determine color based on thresholds.
+    //             console.log("before num", modelOutput[bodyPart]);
+    //             const value = Number(Object.values(modelOutput[bodyPart])[0]);
+
+    //             console.log("value", value);
+    //             let color = "";
+    //             if (value < 100000) {
+    //                 color = "#00FF00";  // Green (Low strain)
+    //             } else if (value < 350000) {
+    //                 color = "#FFA500";  // Orange (Medium strain)
+    //             } else {
+    //                 color = "#FF0000";  // Red (High strain)
+    //             }
+
+    //             // Apply the color to the SVG element.
+    //             partElement.setAttribute("fill", color);
+    //             console.log(`✅ Updated ${bodyPart} to ${color}`);
+    //         } else {
+    //             console.error(`❌ Element with ID '${bodyPart}' not found.`);
+    //         }
+    //     });
+    // }
 });
