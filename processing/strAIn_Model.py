@@ -383,7 +383,7 @@ def aggregate(vid_to_analyze, body_weight):
 
     moments_df = pd.DataFrame(net_moments)
     total_frames = len(moments_df)
-    aggregate_moment = pd.DataFrame(moments_df.abs().sum()).transpose().drop('Frame', axis=1).astype('int').apply(lambda x : x / (total_frames * 60)).to_dict()
+    aggregate_moment = pd.DataFrame(moments_df.sum().abs()).transpose().drop('Frame', axis=1).astype('int').apply(lambda x : x / (total_frames * 60)).to_dict()
     
 
     print(aggregate_moment)
