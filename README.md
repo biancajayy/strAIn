@@ -7,17 +7,33 @@ This project analyzes user-uploaded workout videos to detect which areas of the 
 ---
 
 ## **Input**
-- Video (Max 5 seconds, Full Body)
+- Video (one person, full body)
+- Weight (for Force calculation)
   
 ---
 
 ## **Output**
- - Strain Score: Overall intensity of strain  
- - Areas Most Affected: Key joints experiencing high stress
- - Diagram of Strain Score on Body: Heatmap visualization  
+ - Newtons of Force on knees, hips, and ankles
+ - Diagram of Strain Score on Body: Heatmap visualization
+
+---
+## **Dataset**
+
+This project utilizes the **[GroundLink: A Dataset Unifying Human Body Movement and Ground Reaction Dynamics]** dataset, sourced from **[Boston University]**.  
+The dataset provides synchronized ground reaction force (GRF) data alongside motion capture information. This dataset is valuable for biomechanical analysis, motion prediction, and human movement research.  
+
+### Citation  
+
+ [GroundLink Dataset on arXiv](https://arxiv.org/abs/2302.07879)  
 
 ---
 
+
 ## **Tech Stack**
-- **Backend:** Python, OpenCV, MediaPipe  
-- **Frontend:** Flask, HTML/CSS  
+- OpenCV (Computer Vision)
+- MediaPipe (Pose Estimation & Motion Tracking)
+- Flask (Web Framework)
+- HTML, CSS (User Interface)
+- JS (Interactive elements & client-side logic)
+- Vercel (Deployment)
+
