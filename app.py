@@ -15,10 +15,6 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 def get_model_output():
     # see json at http://127.0.0.1:5000/get_model_output
     return {
-        "shoulder-left": round(random.uniform(0, 1), 2),
-        "shoulder-right": round(random.uniform(0, 1), 2),
-        "elbow-left": round(random.uniform(0, 1), 2),
-        "elbow-right": round(random.uniform(0, 1), 2),
         "hip-left": round(random.uniform(0, 1), 2),
         "hip-right": round(random.uniform(0, 1), 2),
         "knee-left": round(random.uniform(0, 1), 2),
@@ -42,7 +38,15 @@ def index():
 
         if file:
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            
+            file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+
+            # Remove any existing file in the uploads folder
+            for existing_file in os.listdir(app.config["UPLOAD_FOLDER"]):
+                existing_file_path = os.path.join(app.config["UPLOAD_FOLDER"], existing_file)
+                os.remove(existing_file_path)
+            
+            file.save(file_path)
             return redirect(url_for("view_video", filename=filename)) # redirect to video page w results
     return render_template("index.html")
         
