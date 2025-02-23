@@ -4,27 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STRAIN - Upload Video</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <section class="hero">
         <div class="hero-container"> 
-            <div class="column-left">
-                <h1>STRAIN</h1>
-                <p>Upload your workout videos to detect which areas of the body experience the most strain.</p>
+            <h1>STRAIN</h1>
+            <p>Upload your workout videos to detect which areas of the body experience the most strain.</p>
 
-                <!-- Upload Form -->
-                <form action="/" method="post" enctype="multipart/form-data" class="upload-container">
-                    <label class="upload-btn">
-                        Upload
-                        <input type="file" name="file" class="upload-input" accept="video/*" required>
-                    </label>
-                </form>
+            <!-- Upload Section (No Form) -->
+            <div class="upload-container">
+                
+                <div class="form-row">
+                    <!-- Weight Input (Styled with Thin Underline) -->
+                    <div class="weight-input-container">
+                        <label for="weight" class="weight-label">Weight (kg)</label>
+                        <input type="number" name="weight" id="weight" placeholder="0" class="weight-input">
+                    </div>
+
+                    <!-- Hidden File Input -->
+                    <input type="file" id="file" class="upload-input" accept="video/*" style="display: none;">
+
+                    <!-- Upload Button (Only appears when weight is filled) -->
+                    <button id="uploadButton" disabled>Upload Video</button>
+                </div>
+
+                <!-- Error Message -->
+                <p id="error-message" style="color: red; display: none;">Please enter your weight.</p>
+
             </div>
+
         </div>
     </section>
     
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
-
