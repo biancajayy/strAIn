@@ -122,9 +122,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
                 // Determine color based on thresholds.
                 let color = "";
-                if (value < 100000) {
+                if (value < 20) {
                     color = "#00FF00";  // Green (Low strain)
-                } else if (value < 350000) {
+                } else if (value < 40) {
                     color = "#FFA500";  // Orange (Medium strain)
                 } else {
                     color = "#FF0000";  // Red (High strain)
